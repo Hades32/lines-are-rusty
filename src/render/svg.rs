@@ -126,10 +126,27 @@ pub fn render_svg(
     let mut doc = svg::Document::new();
     for (layer_id, layer) in page.layers.iter().enumerate() {
         let mut layer_group = svg::node::element::Group::new().set("class", "layer");
-        for line in layer.lines.iter() {
+        for line in layer
+            .lines
+            .iter()
+            .filter(|l| l.brush_type == BrushType::Highlighter)
+        {
+            let css_color = line_to_css_color(line, layer_id, layer_colors);
+            layer_group = layer_group.add(render_constant_width_line(
+                line,
+                &css_color,
+                distance_threshold,
+                debug_dump,
+            ))
+        }
+        for line in layer
+            .lines
+            .iter()
+            .filter(|l| l.brush_type != BrushType::Highlighter)
+        {
             let css_color = line_to_css_color(line, layer_id, layer_colors);
             match &line.brush_type {
-                BrushType::Highlighter | BrushType::Fineliner => {
+                BrushType::Fineliner => {
                     layer_group = layer_group.add(render_constant_width_line(
                         line,
                         &css_color,

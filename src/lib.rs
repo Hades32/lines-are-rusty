@@ -55,7 +55,7 @@ pub struct Layer {
     pub lines: Vec<Line>,
 }
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub enum BrushType {
     BallPoint,
     Marker,
