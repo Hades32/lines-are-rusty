@@ -136,7 +136,7 @@ fn main() -> Result<()> {
         debug_dump,
     };
 
-    let mut output = BufWriter::new(match output_filename {
+    let mut output = BufWriter::new(match options.output_filename {
         Some(output_filename) => Box::new(
             File::create(output_filename).context(format!("Can't create {}", output_filename))?,
         ),
