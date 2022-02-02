@@ -116,8 +116,10 @@ pub enum Color {
     Black,
     Grey,
     White,
+    Green,
     Blue,
     Red,
+    Yellow,
 }
 
 impl TryFrom<i32> for Color {
@@ -128,6 +130,8 @@ impl TryFrom<i32> for Color {
             0 => Ok(Color::Black),
             1 => Ok(Color::Grey),
             2 => Ok(Color::White),
+            3 => Ok(Color::Yellow),
+            4 => Ok(Color::Green),
             6 => Ok(Color::Blue),
             7 => Ok(Color::Red),
             _ => Err(Error::UnknownColor(color_i)),
@@ -420,18 +424,22 @@ pub struct LayerColor {
     pub black: String,
     pub grey: String,
     pub white: String,
+    pub green: String,
     pub blue: String,
     pub red: String,
+    pub yellow: String,
 }
 
 impl Default for LayerColor {
     fn default() -> Self {
         Self {
-            black: "black".to_string(),
+            black: "#000000".to_string(),
             grey: "#bfbfbf".to_string(),
-            white: "white".to_string(),
+            white: "#ffffff".to_string(),
             blue: "#0062cc".to_string(),
+            green: "#00ff00".to_string(),
             red: "#d90707".to_string(),
+            yellow: "#f0dc28".to_string(),
         }
     }
 }

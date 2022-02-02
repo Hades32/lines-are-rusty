@@ -86,26 +86,32 @@ fn main() -> Result<()> {
     let auto_crop = matches.is_present("auto-crop");
     let colors = matches.value_of("custom-colors").unwrap();
 
-    let layer_colors = colors
-        .split(';')
-        .map(|layer| {
-            let c = layer.split(',').collect::<Vec<&str>>();
-            if c.len() != 5 {
-                eprintln!(
-                    "Expected 5 colors per layer (black, grey, white, blue, red). Found: {}",
-                    layer
-                );
-                exit(1);
-            }
-            LayerColor {
-                black: c[0].to_string(),
-                grey: c[1].to_string(),
-                white: c[2].to_string(),
-                blue: c[3].to_string(),
-                red: c[4].to_string(),
-            }
-        })
-        .collect();
+    let layer_colors = if colors.is_empty() {
+        vec![LayerColor::default()]
+    } else {
+        colors
+            .split(';')
+            .map(|layer| {
+                let c = layer.split(',').collect::<Vec<&str>>();
+                if c.len() != 6 {
+                    eprintln!(
+                        "Expected 5 colors per layer (black, grey, white, blue, red, green, yellow). Found: {}",
+                        layer
+                    );
+                    exit(1);
+                }
+                LayerColor {
+                    black: c[0].to_string(),
+                    grey: c[1].to_string(),
+                    white: c[2].to_string(),
+                    blue: c[3].to_string(),
+                    red: c[4].to_string(),
+                    green: c[5].to_string(),
+                    yellow: c[6].to_string(),
+                }
+            })
+            .collect()
+    };
 
     let distance_threshold: f32 = matches
         .value_of("distance-threshold")

@@ -47,15 +47,14 @@ impl BoundingBox {
 pub fn line_to_css_color(line: &Line, layer_idx: usize, layer_colors: &[LayerColor]) -> String {
     // If no layer color is provided for this layer, default to the last layer we have colors for.
     let layer_colors = layer_colors.get(layer_idx).cloned().unwrap_or_default();
-    match line.brush_type {
-        BrushType::Highlighter => "rgb(240, 220, 40)".to_string(),
-        _ => match line.color {
-            Color::Black => layer_colors.black,
-            Color::Grey => layer_colors.grey,
-            Color::White => layer_colors.white,
-            Color::Blue => layer_colors.blue,
-            Color::Red => layer_colors.red,
-        },
+    match line.color {
+        Color::Black => layer_colors.black,
+        Color::Grey => layer_colors.grey,
+        Color::White => layer_colors.white,
+        Color::Green => layer_colors.green,
+        Color::Blue => layer_colors.blue,
+        Color::Red => layer_colors.red,
+        Color::Yellow => layer_colors.yellow,
     }
 }
 
