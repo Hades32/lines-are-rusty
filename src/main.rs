@@ -183,12 +183,7 @@ fn process_single_file(
         )
         .context("failed to write SVG")?,
         OutputType::Pdf => {
-            // Alas, the pdf-canvas crate insists on writing to a File instead of a Write
-            let pdf_filename = opts
-                .output_filename
-                .context("Output file needed for PDF output")?;
-            lines_are_rusty::render_pdf(pdf_filename, &lines_data.pages)
-                .context("failed to write pdf")?
+            Result::Err(anyhow::anyhow!("PDF support disabled"))?
         }
     }
     Ok(())

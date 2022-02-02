@@ -1,5 +1,4 @@
 pub mod render {
-    pub mod pdf;
     pub mod renderlib;
     pub mod svg;
     pub mod templates;
@@ -7,7 +6,6 @@ pub mod render {
 pub mod parse {
     pub mod parse_lines;
 }
-pub use render::pdf::render_pdf;
 pub use render::svg::render_svg;
 use std::ops::{Add, Div, Mul, Sub};
 use thiserror::Error;
